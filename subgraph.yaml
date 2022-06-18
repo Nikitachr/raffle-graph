@@ -1,0 +1,38 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: undefined
+    network: mumbai
+    source:
+      address: "0x2F4F98b1b0b0465925021134269Afe409f5FA365"
+      abi: Raffle
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - GameCalculating
+        - GameEnded
+        - GameStarted
+        - OwnershipTransferred
+        - PlayerAddedBalance
+        - PlayerJoined
+      abis:
+        - name: Raffle
+          file: ./abis/Raffle.json
+      eventHandlers:
+        - event: GameCalculating()
+          handler: handleGameCalculating
+        - event: GameEnded(uint256,address,uint256)
+          handler: handleGameEnded
+        - event: GameStarted(uint256,uint256)
+          handler: handleGameStarted
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PlayerAddedBalance(uint256,address,uint256,uint256,uint256)
+          handler: handlePlayerAddedBalance
+        - event: PlayerJoined(address,uint256)
+          handler: handlePlayerJoined
+      file: ./src/raffle.ts
