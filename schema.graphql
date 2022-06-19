@@ -1,4 +1,5 @@
-type ExampleEntity @entity {
+type UserHistory @entity {
   id: ID!
-  count: BigInt!
+  player: Bytes!
+  amount: BigInt!
 }
